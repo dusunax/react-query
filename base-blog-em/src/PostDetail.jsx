@@ -1,4 +1,7 @@
+import { useQuery } from "react-query";
+
 async function fetchComments(postId) {
+  console.log(postId);
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
   );
@@ -16,14 +19,20 @@ async function deletePost(postId) {
 async function updatePost(postId) {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/postId/${postId}`,
-    { method: "PATCH", data: { title: "REACT QUERY FOREVER!!!!" } }
+    { method: "PATCH", data: { title: "patch post title" } }
   );
   return response.json();
 }
 
 export function PostDetail({ post }) {
-  // replace with useQuery
-  const data = [];
+  const { data, isLoading, isError, error } = useQuery(
+    ["comment", post.id],
+    () => fetchComments(post.id),
+    { staleTime: 10000 }
+  );
+
+  if (isLoading) return <>로딩.......</>;
+  if (isError) return <>{error.toString() + "......."}</>;
 
   return (
     <>
