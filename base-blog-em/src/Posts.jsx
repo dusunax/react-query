@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 
 import { PostDetail } from "./PostDetail";
 const maxPostPage = 3;
@@ -12,21 +12,29 @@ async function fetchPosts(page) {
 }
 
 export function Posts() {
+  const queryClient = useQueryClient();
+
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
+  const isMin = currentPage <= 0;
+  const isMax = currentPage >= maxPostPage - 1;
 
-  const { data, isError, isLoading } = useQuery(
+  useEffect(() => {
+    const nextPage = currentPage + 1;
+    queryClient.prefetchQuery(["posts", nextPage], () => fetchPosts(nextPage));
+  }, [currentPage, queryClient]);
+
+  const { data, isError, isLoading, isFetching } = useQuery(
     ["posts", currentPage],
     () => fetchPosts(currentPage),
     {
       staleTime: 10000,
+      keepPreviousData: true,
     }
   );
-  if (isLoading) return <div>로딩로딩로딩</div>;
+  if (isFetching) return <div>패칭패칭</div>;
+  if (isLoading) return <div>로딩로딩</div>;
   if (isError) return <div>에러에러</div>;
-
-  const isMin = currentPage <= 0;
-  const isMax = currentPage >= maxPostPage - 1;
 
   return (
     <>

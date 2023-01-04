@@ -17,3 +17,5 @@
 - 이전 내용을 복습합니다.
 - pagination을 구현합니다.
 - query key를 동적으로 사용하는 법에 대해 알아봅니다.
+- prefetching에 대해 알아봅니다.
+- isFetching과 isLoading을 확인합니다.
