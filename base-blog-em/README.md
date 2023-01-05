@@ -1,5 +1,7 @@
 # Blog-em Ipsum
 
+> "https://jsonplaceholder.typicode.com/" api를 사용한 블로그 (페이지네이션)
+
 ## 내용
 
 ### 230103
@@ -19,3 +21,9 @@
 - query key를 동적으로 사용하는 법에 대해 알아봅니다.
 - prefetching에 대해 알아봅니다.
 - isFetching과 isLoading을 확인합니다.
+
+### 230105
+
+- **section 2 내용: 마무리**
+- useMutation을 사용하는 법에 대해 알아봅니다.
+- mutation을 사용해서 수정, 삭제 요청을 보냅니다.
