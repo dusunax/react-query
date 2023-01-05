@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 async function fetchComments(postId) {
   console.log(postId);
@@ -31,13 +31,21 @@ export function PostDetail({ post }) {
     { staleTime: 10000 }
   );
 
+  // 변이 Mutation
+  const deleteMutation = useMutation((postId) => deletePost(postId));
+
   if (isLoading) return <>로딩.......</>;
   if (isError) return <>{error.toString() + "......."}</>;
 
   return (
     <>
       <h3 style={{ color: "blue" }}>{post.title}</h3>
-      <button>Delete</button> <button>Update title</button>
+
+      <button>Update title</button>
+      {deleteMutation.isError && <span>삭제 에러 메시지</span>}
+      {deleteMutation.isLoading && <span>삭제 로딩 메시지</span>}
+      {deleteMutation.isSuccess && <span>삭제 성공 메시지</span>}
+
       <p>{post.body}</p>
       <h4>Comments</h4>
       {data.map((comment) => (
