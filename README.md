@@ -6,11 +6,11 @@
 
 ---
 
-# Blog-em Ipsum
+### Blog-em Ipsum
 
 > "https://jsonplaceholder.typicode.com/" api를 사용한 블로그 (페이지네이션)
 
-# Infinite SWAPI
+### Infinite SWAPI
 
 > react query를 이용한 무한 스크롤
 
