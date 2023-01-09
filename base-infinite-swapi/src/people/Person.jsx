@@ -3,8 +3,8 @@ export function Person({ name, hairColor, eyeColor }) {
     <li>
       {name}
       <ul>
-        <li>hair: {hairColor}</li>
-        <li>eyes: {eyeColor}</li>
+        <li>머리 색: {hairColor}</li>
+        <li>눈 색: {eyeColor}</li>
       </ul>
     </li>
   );

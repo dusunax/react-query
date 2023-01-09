@@ -1,5 +1,62 @@
 .loading {
   position: fixed;
-  top: 5px;
+  top: -50px;
   right: 5px;
+}
+
+body,
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 !important;
+}
+
+#root {
+  height: 100vh;
+  perspective: 300px;
+}
+
+.App {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+
+  text-align: center;
+  transform: rotateX(30deg) translate(-50%, -50%) scale(2);
+  overflow: hidden;
+
+  /* background-color: #fff; */
+}
+
+ul,
+li {
+  text-decoration: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+li {
+  line-height: 0.8;
+  margin: 10px 0;
+  padding-right: 10px;
+}
+
+li {
+  border-right: 1px solid goldenrod;
+}
+
+li:last-child {
+  border: none;
+}
+
+h1 {
+  margin: 0;
+  margin-bottom: 20px;
 }

@@ -9,30 +9,41 @@ const fetchUrl = async (url) => {
 };
 
 export function InfinitePeople() {
-  const { data, fetchNextPage, hasNextPage, isLoading, isError, error } =
-    useInfiniteQuery(
-      "sw-people",
-      ({ pageParam = initialUrl }) => fetchUrl(pageParam),
-      {
-        getNextPageParam: (lastPage) => lastPage.next || undefined,
-      }
-    );
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = useInfiniteQuery(
+    "sw-people",
+    ({ pageParam = initialUrl }) => fetchUrl(pageParam),
+    {
+      getNextPageParam: (lastPage) => lastPage.next || undefined,
+    }
+  );
 
-  if (isLoading) return <div>로딩 중입니다</div>;
+  const loadingEl = <div className="loading">로딩 중입니다</div>;
+  if (isLoading) return loadingEl;
   if (isError) return <div>에러 : {error}</div>;
 
   return (
-    <InfiniteScroll loadMore={fetchNextPage} hasMore={hasNextPage}>
-      {data.pages.map((pageData) =>
-        pageData.results.map((person) => (
-          <Person
-            key={person.name}
-            name={person.name}
-            hairColorname={person.hairColorname}
-            eyeColor={person.eyeColor}
-          />
-        ))
-      )}
-    </InfiniteScroll>
+    <>
+      <InfiniteScroll loadMore={fetchNextPage} hasMore={hasNextPage}>
+        {isFetching && loadingEl}
+        {data.pages.map((pageData) =>
+          pageData.results.map((person) => (
+            <Person
+              key={person.name}
+              name={person.name}
+              hairColorname={person.hairColorname}
+              eyeColor={person.eyeColor}
+            />
+          ))
+        )}
+      </InfiniteScroll>
+    </>
   );
 }

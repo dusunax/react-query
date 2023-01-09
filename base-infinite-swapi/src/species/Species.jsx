@@ -1,11 +1,11 @@
 export function Species({ name, language, averageLifespan }) {
   return (
-    <li>
-      {name}
+    <div>
+      <strong>{name}</strong>
       <ul>
-        <li>language: {language}</li>
-        <li>average lifespan: {averageLifespan}</li>
+        <li>언어: {language}</li>
+        <li>평균 수명: {averageLifespan}</li>
       </ul>
-    </li>
+    </div>
   );
 }

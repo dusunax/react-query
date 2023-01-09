@@ -9,30 +9,43 @@ const fetchUrl = async (url) => {
 };
 
 export function InfiniteSpecies() {
-  const { data, fetchNextPage, hasNextPage, isLoading, isError, error } =
-    useInfiniteQuery(
-      "sw-species",
-      ({ pageParam = initialUrl }) => fetchUrl(pageParam),
-      { getNextPageParam: (lastPage) => lastPage.next || undefined }
-    );
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = useInfiniteQuery(
+    "sw-species",
+    ({ pageParam = initialUrl }) => fetchUrl(pageParam),
+    {
+      getNextPageParam: (lastPage) => lastPage.next || undefined,
+    }
+  );
 
-  if (isLoading) return <div>로딩 중입니다.</div>;
+  const loadingEl = <div className="loading">로딩 중입니다.</div>;
+  if (isLoading) return loadingEl;
   if (isError) return <div>에러 : {error.toString()}</div>;
 
   return (
-    <InfiniteScroll loadMore={fetchNextPage} hasMore={hasNextPage}>
-      {data.pages.map((pageData) => {
-        return pageData.result.map((species) => {
-          return (
-            <Species
-              key={species.name}
-              name={species.name}
-              language={species.language}
-              averageLifespan={species.averageLifespan}
-            />
-          );
-        });
-      })}
-    </InfiniteScroll>
+    <>
+      {isFetching && loadingEl}
+      <InfiniteScroll loadMore={fetchNextPage} hasMore={hasNextPage}>
+        {data.pages.map((pageData) => {
+          return pageData.results.map((species) => {
+            return (
+              <Species
+                key={species.name}
+                name={species.name}
+                language={species.language}
+                averageLifespan={species.average_lifespan}
+              />
+            );
+          });
+        })}
+      </InfiniteScroll>
+    </>
   );
 }
