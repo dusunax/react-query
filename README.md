@@ -63,6 +63,12 @@
 - useInfiniteQuery를 사용하는 법에 대해 알아봅니다.
 - react-infinite-scroller와 react query를 함께 사용합니다.
 
+### 230109
+- **section 3 마무리**
+- 실습 및 css 조금 수정  
+![chrome-capture-2023-0-9-min](https://user-images.githubusercontent.com/94776135/211334677-1b0eab3d-0edc-4ef9-bdd4-79642650b563.gif)
+
+
 ---
 
 > 소스코드 출처: Udemy course [React Query: Server State Management in React](https://www.udemy.com/course/learn-react-query/?couponCode=REACT-QUERY-GITHUB)
