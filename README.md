@@ -64,10 +64,30 @@
 - react-infinite-scroller와 react query를 함께 사용합니다.
 
 ### 230109
+
 - **section 3 마무리**
 - 실습 및 css 조금 수정  
-![chrome-capture-2023-0-9-min](https://user-images.githubusercontent.com/94776135/211334677-1b0eab3d-0edc-4ef9-bdd4-79642650b563.gif)
+  ![chrome-capture-2023-0-9-min](https://user-images.githubusercontent.com/94776135/211334677-1b0eab3d-0edc-4ef9-bdd4-79642650b563.gif)
 
+### 230110
+
+- **section 4 init**
+- 새 예제 프로젝트: 소스코드 정리, 패키지 설치 및 예제내용 파악하기
+
+### 230111
+
+- **section 4 내용**
+- 규모가 큰 예제입니다.
+
+```
+TS, React-query, Chakra ui, Axios, Formik, Firebase, DayJS
+- Firebase와 axios interceptor 사용
+- chakra ui에서 제공하는 ui 사용
+- Typescript로 타입 관리
+- Formik로 폼 데이터 관리
+```
+
+- react-query의 집중화와 커스텀 훅, 에러 핸들링에 관해 알아봅니다.
 
 ---
 
