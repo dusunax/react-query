@@ -18,7 +18,7 @@
 
 ## 내용
 
-### 230103
+### 230103 - day 1
 
 #### **section 1 내용**
 
@@ -28,7 +28,7 @@
 - staleTime과 cacheTime을 알아봅니다.
 - react-query devtools를 사용해봅니다.
 
-### 230104
+### 230104 - day 2
 
 #### **section 2 내용**
 
@@ -38,7 +38,7 @@
 - prefetching에 대해 알아봅니다.
 - isFetching과 isLoading을 확인합니다.
 
-### 230105
+### 230105 - day 3
 
 #### **section 2 내용 - 마무리**
 
@@ -50,31 +50,31 @@
 - 새 react query 프로젝트를 set-up합니다.
 - devTools을 추가합니다.
 
-### 230106
+### 230106 - day 4
 
 #### **section 3 내용**
 
 - useInfiniteQuery를 사용하는 법에 대해 알아봅니다.
 - react-infinite-scroller와 react query를 함께 사용합니다.
 
-### 230106
+### 230106 - day 5
 
 - **section 3 내용**
 - useInfiniteQuery를 사용하는 법에 대해 알아봅니다.
 - react-infinite-scroller와 react query를 함께 사용합니다.
 
-### 230109
+### 230109 - day 6
 
 - **section 3 마무리**
 - 실습 및 css 조금 수정  
   ![chrome-capture-2023-0-9-min](https://user-images.githubusercontent.com/94776135/211334677-1b0eab3d-0edc-4ef9-bdd4-79642650b563.gif)
 
-### 230110
+### 230110 - day 7
 
 - **section 4 init**
 - 새 예제 프로젝트: 소스코드 정리, 패키지 설치 및 예제내용 파악하기
 
-### 230111
+### 230111 - day 8
 
 - **section 4 내용**
 - 규모가 큰 예제입니다.
@@ -88,6 +88,13 @@ TS, React-query, Chakra ui, Axios, Formik, Firebase, DayJS
 ```
 
 - react-query의 집중화와 커스텀 훅, 에러 핸들링에 관해 알아봅니다.
+
+### 230113 - day 9
+
+- **section 4 내용**
+- useQuery 작성 해보기
+- 전역 에러 핸들링 : base-lazy-days\client\src\react-query\queryClient.ts
+- 전역 로딩 스피너 : base-lazy-days\client\src\components\app\Loading.tsx
 
 ---
 
