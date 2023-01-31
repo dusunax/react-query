@@ -9,7 +9,7 @@ import { AppointmentDateMap } from '../types';
 import { getAvailableAppointments } from '../utils';
 import { getMonthYearDetails, getNewMonthYear, MonthYear } from './monthYear';
 
-// for useQuery call
+/** useQuery 요청 */
 async function getAppointments(
   year: string,
   month: string,
@@ -18,6 +18,7 @@ async function getAppointments(
   return data;
 }
 
+// Hook return: 타입
 // types for hook return object
 interface UseAppointments {
   appointments: AppointmentDateMap;
@@ -27,52 +28,46 @@ interface UseAppointments {
   setShowAll: Dispatch<SetStateAction<boolean>>;
 }
 
-// The purpose of this hook:
-//   1. track the current month/year (aka monthYear) selected by the user
-//     1a. provide a way to update state
-//   2. return the appointments for that particular monthYear
-//     2a. return in AppointmentDateMap format (appointment arrays indexed by day of month)
-//     2b. prefetch the appointments for adjacent monthYears
-//   3. track the state of the filter (all appointments / available appointments)
-//     3a. return the only the applicable appointments for the current monthYear
+// 목적 The purpose of this hook:
+//   1. 유저가 선택하는 현재 month/year 추적
+//     1a. state를 업데이트
+//   2. monthYear에 해당하는 예약 정보를 리턴
+//     2a. AppointmentDateMap 포맷을 리턴 (예약 정보 배열 + 날짜 index)
+//     2b. 근접한 monthYear를 prefetch합니다.
+//   3. 필터 내용 추적 (전체 예약 / 가능한 예약)
+//     3a. 해당 monthYear의 가능한 예약만 리턴합니다.
 export function useAppointments(): UseAppointments {
   /** ****************** START 1: monthYear state *********************** */
-  // get the monthYear for the current date (for default monthYear state)
+  // 현재 날짜의 monthYear를 가져옵니다. (monthYear 기본값)
   const currentMonthYear = getMonthYearDetails(dayjs());
 
-  // state to track current monthYear chosen by user
-  // state value is returned in hook return object
+  // 유저가 선택하는 현재 monthYear를 추적합니다.
+  // (Hook이 객체로 return)
   const [monthYear, setMonthYear] = useState(currentMonthYear);
 
-  // setter to update monthYear obj in state when user changes month in view,
-  // returned in hook return object
+  // update obj의 setter (유저가 view에서 month를 바꿀 때)
+  // (Hook이 객체로 return)
   function updateMonthYear(monthIncrement: number): void {
     setMonthYear((prevData) => getNewMonthYear(prevData, monthIncrement));
   }
-  /** ****************** END 1: monthYear state ************************* */
-  /** ****************** START 2: filter appointments  ****************** */
-  // State and functions for filtering appointments to show all or only available
+  /** ****************** START 2: 예약 filter ****************** */
+  // 필터 적용할 지 여부
   const [showAll, setShowAll] = useState(false);
 
-  // We will need imported function getAvailableAppointments here
-  // We need the user to pass to getAvailableAppointments so we can show
-  //   appointments that the logged-in user has reserved (in white)
+  // 여기 코드 작성
+  // getAvailableAppointments import,
+  // appointments that the logged-in user has reserved (in white)
   const { user } = useUser();
 
-  /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */
-  // useQuery call for appointments for the current monthYear
+  // useQuery 요청 (현재 monthYear로 예약 정보 가져오기)
 
-  // TODO: update with useQuery!
-  // Notes:
-  //    1. appointments is an AppointmentDateMap (object with days of month
-  //       as properties, and arrays of appointments for that day as values)
-  //
-  //    2. The getAppointments query function needs monthYear.year and
-  //       monthYear.month
+  // 할 일 : useQuery로 업데이트
+  // 내용 :
+  //    1. 예약은 AppointmentDateMap 형태 (객체: 날짜가 properties, 예약 내용이 배열 값)
+  //    2. getAppointments 쿼리 함수는 monthYear.year와 monthYear.month 필요 (`/appointments/${year}/${month}`)
+
   const appointments = {};
-
-  /** ****************** END 3: useQuery  ******************************* */
 
   return { appointments, monthYear, updateMonthYear, showAll, setShowAll };
 }

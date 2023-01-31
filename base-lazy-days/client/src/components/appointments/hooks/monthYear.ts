@@ -2,24 +2,23 @@ import dayjs from 'dayjs';
 
 // for storing current month / year details
 export interface MonthYear {
-  startDate: dayjs.Dayjs; // first day of the month
-  firstDOW: number; // day of week; 0 === Sunday
-  lastDate: number; // last date of the month
-  monthName: string; // name of the month
-  month: string; // two digit month number
-  year: string; // four digit year
+  startDate: dayjs.Dayjs; // 첫 날에 대한 정보
+  firstDOW: number; // 첫 Day of week, 0부터
+  lastDate: number; // 달의 마지막 날
+  monthName: string; // 달의 영어 이름
+  month: string; // 달, mm
+  year: string; // 년, yyyy
 }
 
-// for incrementing MonthYear
+// MonthYear 증감
 export function getUpdatedMonthYear(
   monthYear: MonthYear,
-  monthIncrement: number,
+  monthIncrement: number, // +1, -1
 ): dayjs.Dayjs {
-  // the clone is necessary to prevent mutation
-  return monthYear.startDate.clone().add(monthIncrement, 'months');
+  return monthYear.startDate.clone().add(monthIncrement, 'months'); // 뮤테이션을 막기 위해 클론합니다.
 }
 
-// get calendar-relevant data for the month containing initialDate
+// 캘린더 정보를 가져옴
 export function getMonthYearDetails(initialDate: dayjs.Dayjs): MonthYear {
   const month = initialDate.format('MM');
   const year = initialDate.format('YYYY');
@@ -34,9 +33,8 @@ export function getNewMonthYear(
   prevData: MonthYear,
   monthIncrement: number,
 ): MonthYear {
-  // update the monthYear by the specified increment
-  const newMonthYear = getUpdatedMonthYear(prevData, monthIncrement);
+  const newMonthYear = getUpdatedMonthYear(prevData, monthIncrement); // getUpdatedMonthYear로 이전 데이터, 새 증감 내용 전달 => 업데이트
 
-  // return object with the details for the new monthYear
+  // newMonthYear를 사용해서 해당 캘린더 내용을 가져오고, return합니다.
   return getMonthYearDetails(newMonthYear);
 }
