@@ -1,6 +1,7 @@
 // @ts-nocheck
 import dayjs from 'dayjs';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useQuery } from 'react-query';
 
 import { axiosInstance } from '../../../axiosInstance';
 import { queryKeys } from '../../../react-query/constants';
@@ -67,7 +68,14 @@ export function useAppointments(): UseAppointments {
   //    1. 예약은 AppointmentDateMap 형태 (객체: 날짜가 properties, 예약 내용이 배열 값)
   //    2. getAppointments 쿼리 함수는 monthYear.year와 monthYear.month 필요 (`/appointments/${year}/${month}`)
 
-  const appointments = {};
+  const fallback = {}; // fallback 준비
+  const { data: appointments = fallback } = useQuery(
+    // useQuery에서 data 뽑음 => 약속으로 이름 변경, 기본값 fallback
+    [queryKeys.appointments, monthYear.year, monthYear.month], // 쿼리 키 (객체로 휴먼 에러 방지)
+    // queryKeys.appointment : 모든 키에 공통되는 값
+    () => getAppointments(monthYear.year, monthYear.month), // 콜백으로
+    // keepPreviousData: 화면 구성(달력 요일)이 달마다 계속 바뀌므로, 기존 데이터를 보관하면 안됩니다.
+  );
 
   return { appointments, monthYear, updateMonthYear, showAll, setShowAll };
 }
