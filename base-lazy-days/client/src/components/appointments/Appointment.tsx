@@ -1,6 +1,6 @@
 import { Box, HStack, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { Appointment as AppointmentType, User } from '../../../../shared/types';
 import { useUser } from '../user/hooks/useUser';
@@ -47,6 +47,7 @@ export function Appointment({
   }
 
   const appointmentHour = dayjs(appointmentData.dateTime).format('h a');
+
   return (
     <Box
       borderRadius="lg"

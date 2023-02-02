@@ -1,7 +1,7 @@
 // @ts-nocheck
 import dayjs from 'dayjs';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { useQuery } from 'react-query';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { axiosInstance } from '../../../axiosInstance';
 import { queryKeys } from '../../../react-query/constants';
@@ -16,6 +16,7 @@ async function getAppointments(
   month: string,
 ): Promise<AppointmentDateMap> {
   const { data } = await axiosInstance.get(`/appointments/${year}/${month}`);
+
   return data;
 }
 
@@ -62,6 +63,23 @@ export function useAppointments(): UseAppointments {
 
   /** ****************** START 3: useQuery  ***************************** */
   // useQuery 요청 (현재 monthYear로 예약 정보 가져오기)
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    // 프리패치 진행, 변수명 겹쳐서 Function 붙임
+    const prefetchQueryFunction = (nearMonthYear) => {
+      const { year, month } = nearMonthYear;
+
+      // queryClient의 prefetchQuery => inactive 데이터를 패치합니다.
+      queryClient.prefetchQuery([queryKeys.appointments, year, month], () =>
+        getAppointments(year, month),
+      );
+    };
+
+    prefetchQueryFunction(getNewMonthYear(monthYear, 1)); // getNewMonthYear 리턴값 => MonthYear 객체
+    prefetchQueryFunction(getNewMonthYear(monthYear, -1));
+  }, [monthYear, queryClient]);
 
   // 할 일 : useQuery로 업데이트
   // 내용 :
